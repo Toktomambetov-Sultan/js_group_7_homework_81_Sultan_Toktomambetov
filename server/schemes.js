@@ -11,6 +11,7 @@ const Link = new Schema({
   shortUrl: {
     type: String,
     required: true,
+    unique: true,
   },
 });
 

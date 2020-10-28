@@ -5,11 +5,20 @@ const config = require("../config");
 const schemes = require("../schemes");
 const router = express.Router();
 
-router.get("/:originalUrl", async (req, res) => {
-  res.send(await schemes.Link.findOne({ originalUrl: req.params.originalUrl }));
+router.get("/:shortUrl", async (req, res) => {
+  res.send(await schemes.Link.findOne({ shortUrl: req.params.shortUrl }));
 });
 
-router.get("/post", async (req, res) => {
+router.get("/", async (req, res) => {
+  try {
+    const links = await schemes.Link.find();
+    res.send(links);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.post("/", async (req, res) => {
   const linkData = schemes.Link({
     originalUrl: req.body.url,
     shortUrl: nanoid(6),
