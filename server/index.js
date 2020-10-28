@@ -1,5 +1,6 @@
 const express = require("express");
 const config = require("./config");
+const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const shortRouter = require("./router/shortRouter");
@@ -16,6 +17,7 @@ const run = async () => {
     console.log(error);
   }
 
+  app.use(cors());
   app.use(express.json());
 
   app.use("/shortUrl", shortRouter);
