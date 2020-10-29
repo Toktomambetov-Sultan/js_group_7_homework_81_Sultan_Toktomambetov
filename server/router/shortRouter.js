@@ -5,9 +5,7 @@ const config = require("../config");
 const schemes = require("../schemes");
 const router = express.Router();
 
-router.get("/delete", async (req, res) => {
-  res.send(await schemes.Link.deleteMany());
-});
+
 router.get("/:shortUrl", async (req, res) => {
   res.send(await schemes.Link.findOne({ shortUrl: req.params.shortUrl }));
 });
