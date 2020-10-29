@@ -1,10 +1,27 @@
-import { Box, Button, Container, Grid, TextField } from "@material-ui/core";
+import {
+  Backdrop,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  makeStyles,
+  TextField,
+} from "@material-ui/core";
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrentLink, shortenLink } from "../../store/actions";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
+
 const HomePage = () => {
+  const classes = useStyles();
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -27,6 +44,9 @@ const HomePage = () => {
   };
   return (
     <Box mt="30vh">
+      <Backdrop className={classes.backdrop} open={state.isLoading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Container maxWidth="md">
         <form onSubmit={onSubmit}>
           <TextField
